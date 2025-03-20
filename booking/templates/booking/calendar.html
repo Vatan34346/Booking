@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Calendar{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center my-4 calendar-title">Booking calendar</h2>
+
+    <div class="card shadow-lg p-4">
+        <div id="calendar"></div>
+    </div>
+</div>
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+
+            //event data :
+            events: "/booking/events/", /*. URL from urls.py (JSON output from views.py) */
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+
+            });
+            calendar.render();
+        });
+
+</script>
+
+<style>
+    .calendar-title {
+        font-weight: bold;
+        font-size: 2rem;
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+    }
+
+    .card {
+        border-radius: 12px;
+        animation: fadeIn 0.7s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+{% endblock %}

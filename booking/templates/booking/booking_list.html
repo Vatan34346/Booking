@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}My bookings{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>My bookings</h2>
+        <a href="{% url 'create_booking' %}" class="btn btn-success">+ New booking</a>
+    </div>
+
+    {% if bookings %}
+        <div class="row">
+            {% for booking in bookings %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm booking-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Table #{{ booking.table_number }}</h5>
+                            <p class="card-text">
+                                <strong>Date:</strong> {{ booking.date }} <br>
+                                <strong>Time:</strong> {{ booking.time }} <br>
+                                <strong>Guests:</strong> {{ booking.guests }}
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <a href="{% url 'update_booking' booking.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                <form method="post" action="{% url 'delete_booking' booking.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete booking?')">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted text-center">You do not have bookings.</p>
+    {% endif %}
+
+    <style>
+        .booking-card {
+            animation: fadeIn 0.5s ease-in-out;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .booking-card:hover {
+            transform: scale(1.03);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+{% endblock %}
