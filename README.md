@@ -2,6 +2,7 @@ Booking – Table Booking System
 Booking is a web application for managing table reservations in restaurants or cafes. Users can book, edit, and delete reservations while viewing them in an interactive calendar.
 
 🚀 Features
+
 ✅ User Authentication
 — Supports user profiles
 — Secure access (only authenticated users can manage bookings)
